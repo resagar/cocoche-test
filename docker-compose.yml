@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:14.1-alpine
+    container_name: api-cards
+    environment:
+      - POSTGRES_USER=ibisdev
+      - POSTGRES_PASSWORD=HHzYpyVkN1Daemfw43!
+      - POSTGRES_DB=ibisdev
+    ports:
+      - '5432:5432'
