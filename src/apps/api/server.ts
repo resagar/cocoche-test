@@ -6,7 +6,6 @@ import express, { Request, Response } from 'express';
 import Router from 'express-promise-router';
 import helmet from 'helmet';
 import * as http from 'http';
-import httpStatus from 'http-status';
 import { Container } from 'typedi';
 import { registerRoutes } from './routes';
 import { ConnectDb } from '../../Contexts/shared/infrastructure/dataSourcePostgres';
@@ -14,6 +13,8 @@ import { ConnectRedis } from './../../Contexts/shared/infrastructure/dataSourceR
 import { CarsSearchFord } from './../../Contexts/Cars/application/CarsSearchFord';
 import { UpdateFordCarsJob } from './cronjobs/UpdateFordCarsJob';
 import { Job } from './cronjobs/Job';
+import { BaseError } from './errors';
+import httpStatus from 'http-status';
 
 export class Server {
   private express: express.Express;
@@ -39,14 +40,16 @@ export class Server {
     this.carsSearchFord = Container.get<CarsSearchFord>(CarsSearchFord);
     this.updateFordCarsJob = Container.get<UpdateFordCarsJob>(UpdateFordCarsJob);
     const router = Router();
-    router.use(errorHandler());
+    if (process.env.NODE_ENV === 'development') {
+      router.use(errorHandler());
+    }
     this.express.use(router);
 
     registerRoutes(router);
 
-    router.use((err: Error, req: Request, res: Response, next: Function) => {
-      console.log(err);
-      res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err.message);
+    router.use((err: BaseError, req: Request, res: Response, next: Function) => {
+      console.log(`${err.description} -> ${err?.stack}`);
+      res.status(err.statusCode || httpStatus.INTERNAL_SERVER_ERROR).json({ errorMessage: err.message });
     });
   }
 

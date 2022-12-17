@@ -1,5 +1,5 @@
 import { Inject, Service } from 'typedi';
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import httpStatus from 'http-status';
 import { Controller } from './Controller';
 import { ConnectDb } from '../../../Contexts/shared/infrastructure/dataSourcePostgres';
@@ -11,12 +11,12 @@ export default class StatusGetController implements Controller {
     @Inject() private readonly dataSourcePostgres: ConnectDb,
     @Inject() private readonly dataSourceRedis: ConnectRedis
   ) {}
-  async run(req: Request, res: Response) {
+  async run(req: Request, res: Response, next: NextFunction) {
     if (!this.dataSourcePostgres.isConnected()) {
-      res.status(httpStatus.INTERNAL_SERVER_ERROR).send('database postgres not initialized');
+      res.status(httpStatus.INTERNAL_SERVER_ERROR).send('Database postgres not initialized');
     }
     if (!this.dataSourceRedis.isConnected()) {
-      res.status(httpStatus.INTERNAL_SERVER_ERROR).send('redis not initialized');
+      res.status(httpStatus.INTERNAL_SERVER_ERROR).send('Redis not initialized');
     }
     res.status(httpStatus.OK).send();
   }

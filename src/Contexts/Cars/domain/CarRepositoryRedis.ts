@@ -1,3 +1,4 @@
+import { NotFoundError } from './../../../apps/api/errors';
 import { CARS_FORD_REDIS_KEY } from './../../shared/constants';
 import { Car } from './Car';
 import Container, { Token } from 'typedi';
@@ -16,8 +17,8 @@ class CarRepositoryRedis implements Repository {
   public async get(key: string): Promise<Array<Car>> {
     const redis = this.dataSource.appDataSource;
     const carsString = await redis.get(key);
-    if (carsString === null) {
-      return [];
+    if (!carsString) {
+      throw new NotFoundError('Cars not found in redis', '');
     }
     return <Array<Car>>JSON.parse(carsString);
   }

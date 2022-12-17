@@ -10,7 +10,7 @@ export class UpdateFordCarsJob implements Job {
 
   constructor(@Inject() private readonly carsSearchFord: CarsSearchFord) {
     this.cronJob = new CronJob(CRON_TIME_SEARCH_CARS, async () => {
-      await this.task();
+      await this.task().catch(err => console.log(err));
       console.log('Ford cars updated');
     });
   }
