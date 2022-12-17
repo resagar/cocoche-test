@@ -11,7 +11,8 @@ class CarRepositoryRedis implements Repository {
   public async save(cars: Array<Car>): Promise<string | null> {
     const redis = this.dataSource.appDataSource;
     const carsString = JSON.stringify(cars);
-    return await redis.set(CARS_FORD_REDIS_KEY, carsString);
+    const result = await redis.set(CARS_FORD_REDIS_KEY, carsString);
+    return result;
   }
 
   public async get(key: string): Promise<Array<Car>> {

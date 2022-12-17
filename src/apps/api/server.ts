@@ -7,6 +7,9 @@ import Router from 'express-promise-router';
 import helmet from 'helmet';
 import * as http from 'http';
 import { Container } from 'typedi';
+import httpStatus from 'http-status';
+import swaggerUi from 'swagger-ui-express';
+import YAML from 'yamljs';
 import { registerRoutes } from './routes';
 import { ConnectDb } from '../../Contexts/shared/infrastructure/dataSourcePostgres';
 import { ConnectRedis } from './../../Contexts/shared/infrastructure/dataSourceRedis';
@@ -14,7 +17,6 @@ import { CarsSearchFord } from './../../Contexts/Cars/application/CarsSearchFord
 import { UpdateFordCarsJob } from './cronjobs/UpdateFordCarsJob';
 import { Job } from './cronjobs/Job';
 import { BaseError } from './errors';
-import httpStatus from 'http-status';
 
 export class Server {
   private express: express.Express;
@@ -51,6 +53,9 @@ export class Server {
       console.log(`${err.description} -> ${err?.stack}`);
       res.status(err.statusCode || httpStatus.INTERNAL_SERVER_ERROR).json({ errorMessage: err.message });
     });
+
+    const swaggerDocument = YAML.load('swagger.yml');
+    router.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   }
 
   async listen(): Promise<void> {

@@ -23,6 +23,7 @@ export class UserCreator {
   }): Promise<{ id: string; createdAt: Date }> {
     const uuid = uuidv4();
     const user = new User({ id: uuid, name, phone, email });
-    return await this.repository.save(user);
+    const result = await this.repository.save(user);
+    return result;
   }
 }

@@ -11,6 +11,7 @@ export class IsExistsEmail {
   }
 
   async run(email: string): Promise<boolean> {
-    return await this.repository.get(email);
+    const result = await this.repository.get(email);
+    return result;
   }
 }

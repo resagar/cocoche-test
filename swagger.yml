@@ -1,0 +1,129 @@
+openapi: '3.0.2'
+info:
+  title: Api get Ford cars and save user
+  version: '0.1'
+servers:
+  - url: http://localhost:8080
+tags:
+  - name: 'cars'
+  - name: 'users'
+paths:
+  /get_ford_cars:
+    get:
+      tags:
+        - 'cars'
+      description: 'get cars Ford'
+      responses:
+        '200':
+          description: 'get list cars ford'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Car'
+
+  /create_user:
+    post:
+      tags:
+        - 'users'
+      description: 'create one new user'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: response create user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  createdAt:
+                    type: string
+                    format: date-time
+components:
+  schemas:
+    Car:
+      type: object
+      properties:
+        ownerId:
+          type: string
+          format: uuid
+        carId:
+          type: string
+          format: uuid
+        title:
+          type: string
+        doors:
+          type: integer
+          format: int64
+        cost:
+          type: integer
+          format: int64
+        url:
+          type: string
+          format: url
+        fuelType:
+          type: string
+        description:
+          type: string
+        modelDescription:
+          type: string
+        brandDescription:
+          type: string
+        placeDescription:
+          type: string
+        latitude:
+          type: string
+        longitude:
+          type: string
+        location:
+          type: string
+        calificationsAvg:
+          type: number
+          format: float
+        currency:
+          type: string
+        year:
+          type: integer
+          format: int64
+        rentsQuantity:
+          type: integer
+          format: int64
+      required:
+        - ownerId
+        - carId
+        - title
+        - doors
+        - cost
+        - url
+        - fuelType
+        - description
+        - modelDescription
+        - brandDescription
+        - placeDescription
+        - currency
+        - year
+    User:
+      type: object
+      properties:
+        name:
+          type: string
+          minimum: 3
+        phone:
+          type: string
+          example: 4081021436
+        email:
+          type: string
+          format: email
+      required:
+        - name
+        - phone
+        - email
