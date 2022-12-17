@@ -1,6 +1,8 @@
 import { Api } from './app';
+import { config } from 'dotenv';
 
 try {
+  config();
   new Api().start();
 } catch (e) {
   console.log(e);

@@ -1,13 +1,14 @@
 import { Server } from './server';
-import { config } from 'dotenv';
 
 export class Api {
   server?: Server;
 
   async start() {
-    config();
     const port = process.env.PORT || '5000';
     this.server = new Server(port);
+    await this.server.connectDataSources();
+    await this.server.setCarsToRedis();
+    this.server.startJobsCron();
     return this.server.listen();
   }
 
@@ -16,6 +17,7 @@ export class Api {
   }
 
   async stop() {
+    await this.server?.disconnectDataSources();
     return this.server?.stop();
   }
 }

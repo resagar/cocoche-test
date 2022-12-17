@@ -1,3 +1,3 @@
 export default interface Http {
-  get(): Promise<any>;
+  get<T>(): Promise<T[]>;
 }

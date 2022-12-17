@@ -19,4 +19,16 @@ export class ConnectDb {
       entities: ['./src/**/*.entity.{js,ts}']
     });
   }
+
+  public isConnected() {
+    return this.appDataSource.isInitialized;
+  }
+
+  public async connect() {
+    return await this.appDataSource.initialize();
+  }
+
+  public async disconnect() {
+    return await this.appDataSource.destroy();
+  }
 }

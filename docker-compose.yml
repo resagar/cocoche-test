@@ -2,10 +2,20 @@ version: '3.8'
 services:
   db:
     image: postgres:14.1-alpine
-    container_name: api-cards
+    container_name: api-cars-db
     environment:
       - POSTGRES_USER=ibisdev
       - POSTGRES_PASSWORD=HHzYpyVkN1Daemfw43!
       - POSTGRES_DB=ibisdev
     ports:
       - '5432:5432'
+    volumes:
+      - db_ibisdev:/var/lib/postgresql/data
+  redis:
+    image: 'redis:alpine'
+    container_name: redis-cars
+    ports:
+      - '6379:6379'
+volumes:
+  db_ibisdev:
+    driver: local
