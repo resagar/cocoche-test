@@ -8,7 +8,7 @@ import { Controller } from './Controller';
 export default class CarsFordGetController implements Controller {
   constructor(@Inject() private readonly carsFord: CarsFord) {}
   async run(req: Request, res: Response, next: NextFunction) {
-    const cars = await this.carsFord.searchCars();
+    const cars = await this.carsFord.run();
     res.status(httpStatus.CREATED).send(cars);
   }
 }

@@ -12,7 +12,7 @@ export class CarsFord {
     this.repository = repository;
   }
 
-  public async searchCars(): Promise<Array<Car>> {
+  public async run(): Promise<Array<Car>> {
     const cars = await this.repository.get(CARS_FORD_REDIS_KEY);
     return cars;
   }

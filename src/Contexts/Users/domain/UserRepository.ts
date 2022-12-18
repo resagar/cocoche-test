@@ -1,4 +1,4 @@
-import Container, { Token } from 'typedi';
+import Container, { Service, Token } from 'typedi';
 import { Repository as RepositoryDb } from 'typeorm';
 import { User as UserModel } from './User';
 import { User } from './entity/User.entity';
@@ -6,7 +6,8 @@ import { ConnectDb } from '../../shared/infrastructure/dataSourcePostgres';
 import { Repository } from './Repository';
 import { IntenalServerError } from './../../../apps/api/errors';
 
-class UserRepository implements Repository {
+@Service()
+export class UserRepository implements Repository {
   private readonly userRepository: RepositoryDb<User>;
   constructor(private readonly connect: ConnectDb) {
     this.userRepository = this.connect.appDataSource.getRepository(User);
