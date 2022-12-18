@@ -22,6 +22,11 @@
     "typeorm": "typeorm-ts-node-commonjs"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@fontsource/roboto": "^4.5.8",
+    "@mui/icons-material": "^5.11.0",
+    "@mui/material": "^5.11.0",
     "axios": "^1.2.1",
     "body-parser": "^1.19.0",
     "bodybuilder": "^2.4.0",
