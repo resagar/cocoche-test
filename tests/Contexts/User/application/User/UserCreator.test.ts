@@ -17,9 +17,13 @@ describe('UserCreator', () => {
     const email = faker.internet.email();
     const phone = faker.phone.phoneNumber('#########');
     const createdAt = faker.date.future();
-
     const user = new User({ id, name, phone, email, createdAt });
+
+    const spyOnUserCreatorSave = (userRepositoryMock.save as jest.Mock).mockResolvedValue({ id, createdAt });
+
     const result = await userCreator.run(user);
+    expect(spyOnUserCreatorSave).toHaveBeenCalled();
+    expect(spyOnUserCreatorSave).toHaveBeenCalledWith(user);
     expect(result).toStrictEqual({ id: id, createdAt: createdAt });
   });
 });
