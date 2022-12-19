@@ -16,7 +16,7 @@ export class ConnectDb {
       database: `${process.env.DB_NAME}`,
       synchronize: true,
       logging: false,
-      entities: ['./src/**/*.entity.{js,ts}']
+      entities: [`./entity/**/*.entity.{js,ts}`]
     });
   }
 

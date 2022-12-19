@@ -1,7 +1,7 @@
 import Container, { Service, Token } from 'typedi';
 import { Repository as RepositoryDb } from 'typeorm';
 import { User as UserModel } from './User';
-import { User } from './entity/User.entity';
+import { User } from '../../shared/infrastructure/entity/User.entity';
 import { ConnectDb } from '../../shared/infrastructure/dataSourcePostgres';
 import { Repository } from './Repository';
 import { IntenalServerError } from './../../../apps/api/errors';

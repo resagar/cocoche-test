@@ -13,7 +13,7 @@
     "test": "jest",
     "start": "node ./dist/src/apps/api/start.js",
     "start:frontend": "cd ./src/apps/frontend && npm run start",
-    "build": "tsc -p tsconfig.prod.json && cp ./.env ./dist",
+    "build": "tsc -p tsconfig.prod.json",
     "build:frontend": "cd ./src/apps/frontend && npm run build",
     "typeorm": "typeorm-ts-node-commonjs"
   },
