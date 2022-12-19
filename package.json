@@ -1,24 +1,20 @@
 {
-  "name": "typescript-ddd-skeleton",
-  "version": "1.0.0",
-  "description": "",
+  "name": "cars_and_user",
+  "version": "0.1",
+  "description": "Ejercicio tecnico",
   "repository": {
-    "url": "https://github.com/CodelyTV/typescript-ddd-skeleton"
+    "url": "https://github.com/resagar/cars-and-user"
   },
   "license": "",
-  "engines": {
-    "node": ">=14.0.0",
-    "npm": ">=6.14.0"
-  },
+  "private": true,
   "scripts": {
     "dev": "ts-node-dev --ignore-watch node_modules  ./src/apps/api/start.ts",
-    "test": "npm run test:unit && npm run test:features",
-    "test:unit": "NODE_ENV=test jest",
-    "start": "NODE_ENV=production node dist/src/apps/api/start.ts",
-    "build": "npm run build:clean && npm run build:tsc && npm run build:di",
-    "build:tsc": "tsc -p tsconfig.prod.json",
-    "build:di": "copy 'src/**/*.{json,yaml,html,png}' dist/src",
-    "build:clean": "rm -r dist; exit 0",
+    "dev:frontend": "cd ./src/apps/frontend && npm run dev",
+    "test": "jest",
+    "start": "node ./dist/src/apps/api/start.js",
+    "start:frontend": "cd ./src/apps/frontend && npm run start",
+    "build": "tsc -p tsconfig.prod.json && cp ./.env ./dist",
+    "build:frontend": "cd ./src/apps/frontend && npm run build",
     "typeorm": "typeorm-ts-node-commonjs"
   },
   "dependencies": {
@@ -67,6 +63,7 @@
     "@types/cookie-parser": "^1.4.2",
     "@types/cookie-session": "^2.0.43",
     "@types/cron": "^2.0.0",
+    "@types/dotenv": "^8.2.0",
     "@types/errorhandler": "1.5.0",
     "@types/express": "^4.17.13",
     "@types/faker": "^5.5.8",

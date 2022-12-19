@@ -9,11 +9,11 @@ export class ConnectDb {
   constructor() {
     this.appDataSource = new DataSource({
       type: 'postgres',
-      host: process.env.DB_HOST,
+      host: `${process.env.DB_HOST}`,
       port: parseInt(<string>process.env.DB_PORT),
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
+      username: `${process.env.DB_USERNAME}`,
+      password: `${process.env.DB_PASSWORD}`,
+      database: `${process.env.DB_NAME}`,
       synchronize: true,
       logging: false,
       entities: ['./src/**/*.entity.{js,ts}']
