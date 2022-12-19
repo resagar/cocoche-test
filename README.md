@@ -14,3 +14,5 @@ para correr el proyecto necesita tener instalado docker y docker compose
 2. Correr el comando `npm run dev:frontend`, este comenzara a correr en el puerto 3000
 
 Encontrara el codigo del frontend en la carpeta `src/apps/frontend`
+
+tambien se pueden usar los comando de build para cada aplicacion
