@@ -1,9 +1,7 @@
 import 'reflect-metadata';
-import { Service } from 'typedi';
 import { DataSource } from 'typeorm';
 
-@Service()
-export class ConnectDb {
+export class DataSourcePostgres {
   public appDataSource: DataSource;
 
   constructor() {

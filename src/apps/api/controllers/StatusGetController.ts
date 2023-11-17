@@ -1,15 +1,13 @@
-import { Inject, Service } from 'typedi';
 import { Request, Response, NextFunction } from 'express';
 import httpStatus from 'http-status';
 import { Controller } from './Controller';
-import { ConnectDb } from '../../../Contexts/shared/infrastructure/dataSourcePostgres';
-import { ConnectRedis } from './../../../Contexts/shared/infrastructure/dataSourceRedis';
+import { DataSourcePostgres } from '../../../Contexts/shared/infrastructure/DataSourcePostgres';
+import { DataSourceRedis } from '../../../Contexts/shared/infrastructure/DataSourceRedis';
 
-@Service()
 export default class StatusGetController implements Controller {
   constructor(
-    @Inject() private readonly dataSourcePostgres: ConnectDb,
-    @Inject() private readonly dataSourceRedis: ConnectRedis
+    private readonly dataSourcePostgres: DataSourcePostgres,
+    private readonly dataSourceRedis: DataSourceRedis
   ) {}
   async run(req: Request, res: Response, next: NextFunction) {
     if (!this.dataSourcePostgres.isConnected()) {

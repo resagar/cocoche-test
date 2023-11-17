@@ -6,24 +6,24 @@ import express, { Request, Response } from 'express';
 import Router from 'express-promise-router';
 import helmet from 'helmet';
 import * as http from 'http';
-import { Container } from 'typedi';
 import httpStatus from 'http-status';
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
 import { registerRoutes } from './routes';
-import { ConnectDb } from '../../Contexts/shared/infrastructure/dataSourcePostgres';
-import { ConnectRedis } from './../../Contexts/shared/infrastructure/dataSourceRedis';
-import { CarsSearchFord } from './../../Contexts/Cars/application/CarsSearchFord';
-import { UpdateFordCarsJob } from './cronjobs/UpdateFordCarsJob';
-import { Job } from './cronjobs/Job';
+import { DataSourcePostgres } from '../../Contexts/shared/infrastructure/DataSourcePostgres';
+import { DataSourceRedis } from '../../Contexts/shared/infrastructure/DataSourceRedis';
+import { CarsSearchFord } from '../../Contexts/Cars/application/CarsSearchFord';
+import { UpdateFordCarsJob } from './cronJobs/UpdateFordCarsJob';
+import { Job } from './cronJobs/Job';
 import { BaseError } from './errors';
+import container from './dependency-injection';
 
 export class Server {
   private express: express.Express;
   private port: string;
   private httpServer?: http.Server;
-  private db: ConnectDb;
-  private redis: ConnectRedis;
+  private db: DataSourcePostgres;
+  private redis: DataSourceRedis;
   private carsSearchFord: CarsSearchFord;
   private updateFordCarsJob: Job;
 
@@ -37,10 +37,10 @@ export class Server {
     this.express.use(helmet.hidePoweredBy());
     this.express.use(helmet.frameguard({ action: 'deny' }));
     this.express.use(compress());
-    this.db = Container.get<ConnectDb>(ConnectDb);
-    this.redis = Container.get<ConnectRedis>(ConnectRedis);
-    this.carsSearchFord = Container.get<CarsSearchFord>(CarsSearchFord);
-    this.updateFordCarsJob = Container.get<UpdateFordCarsJob>(UpdateFordCarsJob);
+    this.db = container.get<DataSourcePostgres>('Shared.infrastructure.DataSourcePostgres');
+    this.redis = container.get<DataSourceRedis>('Shared.infrastructure.DataSourceRedis');
+    this.carsSearchFord = container.get<CarsSearchFord>('Car.application.CarsSearchFord');
+    this.updateFordCarsJob = container.get<UpdateFordCarsJob>('App.api.cronJobs.UpdateFordCarsJob');
     const router = Router();
     if (process.env.NODE_ENV === 'development') {
       router.use(errorHandler());

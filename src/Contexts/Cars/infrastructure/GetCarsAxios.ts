@@ -1,8 +1,7 @@
 import { Axios } from 'axios';
-import Container, { Token } from 'typedi';
 import Http from './htpp';
 
-class GetCarsAxios implements Http {
+export class GetCarsAxios implements Http {
   private axiosInstance: Axios;
 
   constructor() {
@@ -19,6 +18,3 @@ class GetCarsAxios implements Http {
     return carList;
   }
 }
-
-export const GET_CARS_AXIOS = new Token<string>('GetCarsAxios');
-Container.set(GET_CARS_AXIOS, new GetCarsAxios());

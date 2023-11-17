@@ -1,0 +1,16 @@
+services:
+  Car.infrastructure.GetCarsAxios:
+    class: ../../../../Contexts/Cars/infrastructure/GetCarsAxios
+    arguments: []
+
+  Car.domain.CarRepositoryRedis:
+    class: ../../../../Contexts/Cars/domain/CarRepositoryRedis
+    arguments: ['@Shared.infrastructure.DataSourceRedis']
+
+  Car.application.CarsSearchFord:
+    class: ../../../../Contexts/Cars/application/CarsSearchFord
+    arguments: ['@Car.infrastructure.GetCarsAxios', '@Car.domain.CarRepositoryRedis']
+
+  Car.application.CarsFord:
+    class: ../../../../Contexts/Cars/application/CarsFord
+    arguments: ['@Car.domain.CarRepositoryRedis']

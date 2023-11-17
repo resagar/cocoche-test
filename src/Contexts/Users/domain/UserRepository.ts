@@ -1,15 +1,14 @@
-import Container, { Service, Token } from 'typedi';
 import { Repository as RepositoryDb } from 'typeorm';
 import { User as UserModel } from './User';
 import { User } from '../../shared/infrastructure/entity/User.entity';
-import { ConnectDb } from '../../shared/infrastructure/dataSourcePostgres';
+import { DataSourcePostgres } from '../../shared/infrastructure/DataSourcePostgres';
 import { Repository } from './Repository';
-import { IntenalServerError } from './../../../apps/api/errors';
+import { IntenalServerError } from '../../../apps/api/errors';
 
-@Service()
 export class UserRepository implements Repository {
   private readonly userRepository: RepositoryDb<User>;
-  constructor(private readonly connect: ConnectDb) {
+
+  constructor(private readonly connect: DataSourcePostgres) {
     this.userRepository = this.connect.appDataSource.getRepository(User);
   }
 
@@ -29,6 +28,3 @@ export class UserRepository implements Repository {
     return count === 1;
   }
 }
-export const USER_REPOSITORY = new Token<string>('UserRepository');
-const connectDb = Container.get(ConnectDb);
-Container.set(USER_REPOSITORY, new UserRepository(connectDb));

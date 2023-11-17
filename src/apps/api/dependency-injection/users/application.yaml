@@ -1,0 +1,12 @@
+services:
+  User.domain.UserRepository:
+    class: ../../../../Contexts/Users/domain/UserRepository
+    arguments: ['@Shared.infrastructure.DataSourcePostgres']
+
+  User.application.UserCreator:
+    class: ../../../../Contexts/Users/application/UserCreator
+    arguments: ['@User.domain.UserRepository']
+
+  User.application.IsExistEmail:
+    class: ../../../../Contexts/Users/application/IsExistEmail
+    arguments: ['@User.domain.UserRepository']

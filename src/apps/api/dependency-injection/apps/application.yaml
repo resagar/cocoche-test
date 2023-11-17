@@ -1,0 +1,16 @@
+services:
+  Apps.api.controllers.StatusGetController:
+    class: ../../controllers/StatusGetController
+    arguments: ['@Shared.infrastructure.DataSourcePostgres', '@Shared.infrastructure.DataSourceRedis']
+
+  Apps.api.controllers.UserPostController:
+    class: ../../controllers/StatusGetController
+    arguments: ['@User.application.UserCreator']
+
+  App.api.controllers.CarsFordGetController:
+    class: ../../controllers/StatusGetController
+    arguments: ['@Car.application.CarsFord']
+
+  App.api.cronJobs.UpdateFordCarsJob:
+    class: ../../cronJobs/UpdateFordCarsJob
+    arguments: [ '@Car.application.CarsSearchFord' ]

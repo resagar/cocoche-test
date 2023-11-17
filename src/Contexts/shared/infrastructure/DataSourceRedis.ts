@@ -1,8 +1,6 @@
-import { Service } from 'typedi';
 import { RedisClientType, createClient } from 'redis';
 
-@Service()
-export class ConnectRedis {
+export class DataSourceRedis {
   public appDataSource: RedisClientType;
 
   constructor() {

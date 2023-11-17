@@ -1,6 +1,6 @@
-import { IsExistsEmail } from './../../../../Contexts/Users/application/IsExistsEmail';
+import { IsExistsEmail } from '../../../../Contexts/Users/application/IsExistsEmail';
 import { checkSchema } from 'express-validator';
-import { Container } from 'typedi';
+import container from '../../dependency-injection';
 
 const saveUserRequestValidator = checkSchema({
   name: {
@@ -37,7 +37,7 @@ const saveUserRequestValidator = checkSchema({
     normalizeEmail: true,
     custom: {
       options: async (value: string) => {
-        const isExistsEmail = Container.get<IsExistsEmail>(IsExistsEmail);
+        const isExistsEmail = container.get<IsExistsEmail>('User.application.IsExistEmail');
         const isExist = await isExistsEmail.run(value).catch(err => {
           throw err;
         });

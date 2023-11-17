@@ -1,0 +1,7 @@
+services:
+  Shared.infrastructure.DataSourcePostgres:
+    class: ../../../../Contexts/shared/infrastructure/DataSourcePostgres
+    arguments: []
+  Shared.infrastructure.DataSourceRedis:
+    class: ../../../../Contexts/shared/infrastructure/DataSourceRedis
+    arguments: []

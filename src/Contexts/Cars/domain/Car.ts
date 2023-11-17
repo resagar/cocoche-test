@@ -41,4 +41,7 @@ export class Car {
   constructor(car: CarType) {
     Object.assign(this, car);
   }
+  static stringToJson(carsList: string): Car[] {
+    return <Car[]>JSON.parse(carsList);
+  }
 }

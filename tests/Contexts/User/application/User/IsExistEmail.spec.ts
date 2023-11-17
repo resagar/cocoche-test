@@ -12,7 +12,7 @@ describe('IsExistsEmail', () => {
     const isExistsEmail = new IsExistsEmail(userRepositoryMock);
 
     const email = faker.internet.email();
-    const spyOnUserCreatorGet = (userRepositoryMock.get as jest.Mock).mockResolvedValue(true);
+    const spyOnUserCreatorGet = userRepositoryMock.get.mockResolvedValue(true);
 
     const result = await isExistsEmail.run(email);
 
